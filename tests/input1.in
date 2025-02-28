@@ -1,0 +1,7 @@
+# Number of rules
+2
+# Rule Format: Source Destination Protocol Action (1=allow, 0=block)
+192.168.1.1 192.168.1.2 ANY 1
+ANY ANY ANY 0
+# Start and End Nodes
+192.168.1.1 192.168.1.2

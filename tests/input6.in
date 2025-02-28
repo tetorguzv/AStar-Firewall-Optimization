@@ -1,0 +1,8 @@
+# Number of rules
+3
+# Rule Format: Source Destination Protocol Action (1=allow, 0=block)
+ANY ANY ICMP 0
+192.168.1.1 192.168.1.2 ICMP 1
+192.168.1.2 192.168.1.3 ICMP 1
+# Start and End Nodes
+192.168.1.1 192.168.1.3
