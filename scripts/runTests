@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Usage: ./runTests <executable> <directory with test files>
+
+if [ "$#" -ne 2 ]; 
+then
+    echo "Usage: $0 <executable> <directory with test files>"
+    exit 1
+fi
+
+executable="$1"
+test_dir="$2"
+
+passed=0
+failed=0
+
+for f in "$test_dir"/*.in
+do
+    basefile=$(basename -- "$f")
+    testfile="${basefile%.*}.test"
+    outfile="$test_dir/${basefile%.*}.out"
+    difffile="$test_dir/${basefile%.*}.diff"
+
+    echo -n "Running test $f..."
+    ./"$executable" < "$f" > "$testfile"
+
+    if cmp -s "$testfile" "$outfile"
+    then
+        echo "passed"
+        passed=$((passed+1))
+        rm -f "$difffile"
+    else
+        echo "failed, see $difffile"
+        diff "$testfile" "$outfile" > "$difffile"
+        failed=$((failed+1))
+    fi
+
+    rm -f "$testfile"
+done
+
+
+echo "$passed PASSED out of $(($failed+$passed)) ($failed failed)"
