@@ -1,0 +1,11 @@
+#   ignore compiled binaries and object files
+build/
+*.o
+*.out
+*.diff
+
+#ignore editor and system files
+*.swp
+*.bak
+.DS_Store
+
